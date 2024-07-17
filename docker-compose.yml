@@ -1,0 +1,20 @@
+services:
+  ieasa:
+    tty: true
+    container_name: ieasa
+    dns:
+    - ${IP_DOMAIN}
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    extra_hosts:
+    - ${FQDN}:${IP_DOMAIN}
+    volumes:
+      - ./storage:/mnt/storage
+      - ./logs/cid:/var/log/cid
+      - ./logs/samba:/var/log/samba
+    env_file:
+      - .env
+    command: >
+      bash -c "cid join domain=${DOMAIN_NAME} user=${ADMIN_USER_DOMAIN} pass=${ADMIN_USER_PASSWORD} 
+      && tail -f /var/log/cid/functions.log"

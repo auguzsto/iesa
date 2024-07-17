@@ -1,0 +1,6 @@
+# Ignora tudo
+.env
+/logs/*
+
+# Exceto
+!.gitkeep
