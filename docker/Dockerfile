@@ -1,4 +1,4 @@
-FROM debian:12-slim
+FROM golang:1.22-bullseye
 
 RUN apt-get update && apt-get upgrade && apt-get install wget -y
 

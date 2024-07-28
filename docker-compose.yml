@@ -1,7 +1,7 @@
 services:
-  ieasa:
+  iesa:
     tty: true
-    container_name: ieasa
+    container_name: iesa
     dns:
     - ${IP_DOMAIN}
     build:
@@ -16,5 +16,4 @@ services:
     env_file:
       - .env
     command: >
-      bash -c "cid join domain=${DOMAIN_NAME} user=${ADMIN_USER_DOMAIN} pass=${ADMIN_USER_PASSWORD} 
-      && tail -f /var/log/cid/functions.log"
+      tail -f /var/log/cid/functions.log"
