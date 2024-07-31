@@ -1,4 +1,4 @@
-FROM golang:1.22-bullseye
+FROM php:8.2-apache
 
 RUN apt-get update && apt-get upgrade && apt-get install wget -y
 
@@ -9,3 +9,9 @@ RUN wget -O /etc/apt/keyrings/cid-archive-keyring.pgp https://c-i-d.sourceforge.
 RUN wget -O /etc/apt/sources.list.d/cid.sources https://c-i-d.sourceforge.io/repo/apt/debian/cid.sources
 
 RUN apt-get update && apt-get install cid -y
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN a2enmod rewrite
+
+COPY .env /etc/iesa/.env

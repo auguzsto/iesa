@@ -10,10 +10,12 @@ services:
     extra_hosts:
     - ${FQDN}:${IP_DOMAIN}
     volumes:
+      - ./app:/var/www/html
       - ./storage:/mnt/storage
       - ./logs/cid:/var/log/cid
       - ./logs/samba:/var/log/samba
+      - ./docker/samba:/etc/samba
+    ports:
+      - 9001:80
     env_file:
       - .env
-    command: >
-      tail -f /var/log/cid/functions.log"

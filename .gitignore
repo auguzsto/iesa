@@ -1,6 +1,7 @@
 # Ignora tudo
 .env
 /logs/*
+vendor/
 
 # Exceto
 !.gitkeep
