@@ -1,0 +1,18 @@
+{
+    "name": "iesa/app",
+    "description": "Isto é um servidor de arquivos",
+    "autoload": {
+        "psr-4": {
+            "Iesa\\App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Matheus Augusto",
+            "email": "auguzsto@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

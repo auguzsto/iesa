@@ -1,20 +1,35 @@
 services:
-  ieasa:
+  iesa:
     tty: true
-    container_name: ieasa
-    dns:
-    - ${IP_DOMAIN}
+    container_name: iesa
     build:
       context: .
       dockerfile: ./docker/Dockerfile
-    extra_hosts:
-    - ${FQDN}:${IP_DOMAIN}
     volumes:
-      - ./storage:/mnt/storage
-      - ./logs/cid:/var/log/cid
-      - ./logs/samba:/var/log/samba
+      - ./app:/var/www/html:rw
+      - ./storage:/mnt/storage:rw
+      - ./logs/cid:/var/log/cid:rw
+      - ./logs/samba:/var/log/samba:rw
+      - ./docker/samba:/etc/samba:rw
+    ports:
+      - 9001:80
     env_file:
       - .env
-    command: >
-      bash -c "cid join domain=${DOMAIN_NAME} user=${ADMIN_USER_DOMAIN} pass=${ADMIN_USER_PASSWORD} 
-      && tail -f /var/log/cid/functions.log"
+
+  iesadb:
+    container_name: "iesadb"
+    image: mariadb:11
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql:rw
+      - ./docker/mysql/config:/etc/mysql/mariadb.conf.d
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_PASS}
+    env_file:
+      - .env
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1

@@ -1,6 +1,9 @@
 # Ignora tudo
 .env
 /logs/*
+vendor/
+docker/mysql/
+docker/mysql/config/
 
 # Exceto
 !.gitkeep
