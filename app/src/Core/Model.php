@@ -29,7 +29,7 @@ namespace Iesa\App\Core;
         }
 
         public function toJson(): string {
-            return print json_encode($this);
+            return print json_encode($this->object);
         }
 
     }
