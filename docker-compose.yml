@@ -6,12 +6,30 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile
     volumes:
-      - ./app:/var/www/html
-      - ./storage:/mnt/storage
-      - ./logs/cid:/var/log/cid
-      - ./logs/samba:/var/log/samba
-      - ./docker/samba:/etc/samba
+      - ./app:/var/www/html:rw
+      - ./storage:/mnt/storage:rw
+      - ./logs/cid:/var/log/cid:rw
+      - ./logs/samba:/var/log/samba:rw
+      - ./docker/samba:/etc/samba:rw
     ports:
       - 9001:80
     env_file:
       - .env
+
+  iesadb:
+    container_name: "iesadb"
+    image: mariadb:11
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql:rw
+      - ./docker/mysql/config:/etc/mysql/mariadb.conf.d
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_PASS}
+    env_file:
+      - .env
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1

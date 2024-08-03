@@ -4,9 +4,9 @@ namespace Iesa\App\Core;
 use mysqli;
 
     class Database {
-        
-        private function __construct() {
-            $this->connection();
+
+        public function mysqli(): mysqli {
+            return $this->connection();
         }
 
         private function connection(): mysqli {
@@ -16,16 +16,10 @@ use mysqli;
                 $pass = $_ENV['DB_PASS'];
                 $port = $_ENV['DB_PORT'];
                 
-                $mysqli = mysqli_connect($host, $user, $pass, "iesa", $port);
+                $mysqli = new mysqli($host, $user, $pass, "iesa", $port);
                 return $mysqli;
             } catch (\Throwable $th) {
                 throw $th;
             }
         }
-
-        public function mysqli(): mysqli {
-            return $this->connection();
-        }
-
-
     }
