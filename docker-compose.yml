@@ -2,13 +2,9 @@ services:
   iesa:
     tty: true
     container_name: iesa
-    dns:
-    - ${IP_DOMAIN}
     build:
       context: .
       dockerfile: ./docker/Dockerfile
-    extra_hosts:
-    - ${FQDN}:${IP_DOMAIN}
     volumes:
       - ./app:/var/www/html
       - ./storage:/mnt/storage
