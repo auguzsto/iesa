@@ -15,8 +15,6 @@ use Iesa\App\Core\Database;
                 $datas = '"'.implode('","', $values).'"';
 
                 $this->mysqli()->query("INSERT INTO $this->table ($columns) VALUES ($datas)");
-                //print "INSERT INTO $this->table ($columns) VALUES ($datas)";
-
             } catch (\Throwable $th) {
                 throw $th;
             }
