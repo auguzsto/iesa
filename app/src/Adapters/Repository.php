@@ -6,14 +6,15 @@ use Iesa\App\Core\Database;
 
         public string $table;
 
-        public function create(object $object): void {
+        public function create(object $model): void {
             try {
-                $keys = array_keys((array) $object);
-                $values = array_values((array) $object);
+                $modelArray = (array) $model->object;
+                $keys = array_keys($modelArray);
+                $values = array_values($modelArray);
 
                 $columns = implode(",", $keys);
                 $datas = '"'.implode('","', $values).'"';
-
+                
                 $this->mysqli()->query("INSERT INTO $this->table ($columns) VALUES ($datas)");
             } catch (\Throwable $th) {
                 throw $th;
