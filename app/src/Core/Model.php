@@ -2,11 +2,7 @@
 namespace Iesa\App\Core;
 
     class Model {
-
-        public int | null $id;
-        public string $created_at;
-        public string | null $updated_at;
-        public string | null $deleted_at;
+        
         public object $object;
 
         private function __construct($object) {
@@ -15,21 +11,16 @@ namespace Iesa\App\Core;
 
         static public function fromMap(array $array): self {
             $instance = new self((object) $array);
-            $attributes = array_keys((array) $instance);
 
-            foreach($attributes as $attribute) {
-                foreach(array_keys($array) as $key) {
-                    if($key == $attribute) {
-                        $instance->$attribute = $array[$attribute];
-                    }
-                }
+            foreach(get_object_vars($instance) as $key => $name) {
+                $instance->$key = $name;
             }
-
+            
             return $instance;
         }
 
         public function toJson(): string {
-            return print json_encode($this);
+            return print json_encode($this->object);
         }
 
     }

@@ -14,9 +14,9 @@ use Iesa\App\Repositories\DomainRepository;
     $domainRepository = new DomainRepository();
     $domain = Domain::fromMap([
         "fqdn" => "exemplo1",
-        "ip" => "mais um",
+        "ip" => "exemplo2",
         "servername" => "exemplo3",
-        "ldap_port" => "teste"
+        "ldap_port" => "ldap_t"
     ]);
 
-    echo $domain->toJson();
+    $domain->toJson();
